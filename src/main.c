@@ -38,7 +38,7 @@ static const char* numbers[] = {
   "Twenty-one",
   "Twenty-two",
   "Twenty-three"
-}
+};
 
 void handle_init(AppContextRef ctx) {
   (void) ctx;
