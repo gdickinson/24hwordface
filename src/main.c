@@ -11,8 +11,9 @@ PBL_APP_INFO(MY_UUID,
              APP_INFO_STANDARD_APP);
 
 Window window;
+static GFont = font;
 
-static const char*[] numbers = {
+static const char* numbers[] = {
   "Zero",
   "One",
   "Two",
@@ -44,6 +45,10 @@ void handle_init(AppContextRef ctx) {
 
   window_init(&window, "Window!");
   window_stack_push(&window, true /* Animated */);
+  window_set_background_color(&window, GColorBlack);
+  resource_init_current_app(&RESOURCES);
+
+  fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ARIAL_28));
 }
 
 static void handle_deinit(AppContextRef ctx) {
@@ -53,10 +58,19 @@ static void handle_deinit(AppContextRef ctx) {
   //fonts_unload_custom_font(font_thick);
 }
 
+void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
+  (void) ctx;
+  const PblTm* const ptm = event->tick_time;
+}
 
 void pbl_main(void *params) {
   PebbleAppHandlers handlers = {
-    .init_handler = &handle_init
+    .init_handler = &handle_init,
+    .deinit_handler = &handle_deinit,
+    .tick_info = {
+      .tick_handler = &handle_tick,
+      .tick_units = MINUTE_UNIT
+    }
   };
   app_event_loop(params, &handlers);
 }
