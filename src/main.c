@@ -46,7 +46,7 @@ void handle_init(AppContextRef ctx) {
   window_init(&window, "Window!");
   window_stack_push(&window, true /* Animated */);
   window_set_background_color(&window, GColorBlack);
-  resource_init_current_app(&RESOURCES);
+  //resource_init_current_app(&RESOURCES);
 
   font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
 }
