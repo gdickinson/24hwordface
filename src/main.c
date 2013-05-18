@@ -48,7 +48,7 @@ void handle_init(AppContextRef ctx) {
   window_set_background_color(&window, GColorBlack);
   resource_init_current_app(&RESOURCES);
 
-  fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ARIAL_28));
+  font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
 }
 
 static void handle_deinit(AppContextRef ctx) {
