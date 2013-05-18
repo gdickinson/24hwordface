@@ -12,12 +12,45 @@ PBL_APP_INFO(MY_UUID,
 
 Window window;
 
+static const char*[] numbers = {
+  "Zero",
+  "One",
+  "Two",
+  "Three",
+  "Four",
+  "Five",
+  "Six",
+  "Seven",
+  "Eight",
+  "Nine",
+  "Ten",
+  "Eleven",
+  "Twelve",
+  "Thirteen",
+  "Fourteen",
+  "Fifteen",
+  "Sixteen",
+  "Seventeen",
+  "Eighteen",
+  "Nineteen",
+  "Twenty",
+  "Twenty-one",
+  "Twenty-two",
+  "Twenty-three"
+}
 
 void handle_init(AppContextRef ctx) {
-  (void)ctx;
+  (void) ctx;
 
-  window_init(&window, "Window Name");
+  window_init(&window, "Window!");
   window_stack_push(&window, true /* Animated */);
+}
+
+static void handle_deinit(AppContextRef ctx) {
+  (void) ctx;
+
+  //fonts_unload_custom_font(font_thin);
+  //fonts_unload_custom_font(font_thick);
 }
 
 
