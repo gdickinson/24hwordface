@@ -13,7 +13,7 @@ PBL_APP_INFO(MY_UUID,
 Window window;
 static GFont = font;
 
-static const char* numbers[] = {
+static const char *numbers[] = {
   "Zero",
   "One",
   "Two",
