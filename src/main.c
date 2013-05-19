@@ -51,7 +51,7 @@ void handle_init(AppContextRef ctx) {
 
   font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
 
-  text_layer_init(&text_layer, GRect(4, 15 + 2*30, 144, 2*30+8));
+  text_layer_init(&text_layer, GRect(0, 0, 144, 2*18));
   text_layer_set_font(&text_layer, font);
 
 
@@ -68,7 +68,6 @@ void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
   text_layer_set_text(&text_layer, "Hello, world!");
-  layer_mark_dirty(&text_layer);
 }
 
 void pbl_main(void *params) {
