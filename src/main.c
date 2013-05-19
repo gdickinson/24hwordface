@@ -12,6 +12,7 @@ PBL_APP_INFO(MY_UUID,
 
 Window window;
 static GFont font;
+TextLayer text_layer;
 
 static const char* numbers[] = {
   "Zero",
@@ -49,6 +50,11 @@ void handle_init(AppContextRef ctx) {
   //resource_init_current_app(&RESOURCES);
 
   font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
+
+  text_layer_init(&text_layer, GRect(4, y + 2*h, 144, 2*h+8));
+  text_layer_set_font(&text_layer, font);
+
+
 }
 
 static void handle_deinit(AppContextRef ctx) {
@@ -61,6 +67,7 @@ static void handle_deinit(AppContextRef ctx) {
 void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
+  text_layer_set_text(&text_layer, "Hello, world!");
 }
 
 void pbl_main(void *params) {
