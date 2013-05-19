@@ -51,7 +51,7 @@ void handle_init(AppContextRef ctx) {
 
   font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
 
-  text_layer_init(&text_layer, GRect(4, y + 2*h, 144, 2*h+8));
+  text_layer_init(&text_layer, GRect(4, 15 + 2*30, 144, 2*30+8));
   text_layer_set_font(&text_layer, font);
 
 
