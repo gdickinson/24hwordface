@@ -3,7 +3,7 @@
         {
             "defName": "DUMMY",
             "type": "raw",
-            "file": "data/resource_map.json"
+            "file": "resource_map.json"
         }
     ],
     "friendlyVersion": "VERSION",

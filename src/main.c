@@ -5,14 +5,16 @@
 
 #define MY_UUID { 0xDF, 0x08, 0xC5, 0x6F, 0x8A, 0xD2, 0x4E, 0xFF, 0x98, 0xB3, 0x3F, 0x80, 0xE3, 0xAC, 0x07, 0x4A }
 PBL_APP_INFO(MY_UUID,
-             "Template App", "Your Company",
+             "Hello World", "Your Company",
              1, 0, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
 Window window;
 static GFont font;
-TextLayer text_layer;
+TextLayer hour_layer;
+TextLayer minute_layer;
+TextLayer static_hours_layer;
 
 static const char* numbers[] = {
   "Zero",
@@ -41,21 +43,38 @@ static const char* numbers[] = {
   "Twenty-three"
 };
 
+static const char* hours_text = "Hours";
+
 void handle_init(AppContextRef ctx) {
   (void) ctx;
 
   window_init(&window, "Window!");
   window_stack_push(&window, true /* Animated */);
   window_set_background_color(&window, GColorBlack);
-  //resource_init_current_app(&RESOURCES);
 
-  font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
+  font = fonts_get_system_font(FONT_KEY_GOTHAM_34_LIGHT_SUBSET);
 
-  text_layer_init(&text_layer, GRect(0, 0, 144, 2*18));
-  text_layer_set_font(&text_layer, font);
+  text_layer_init(&hour_layer, GRect(0, 0, 144, 50));
+  text_layer_set_font(&hour_layer, font);
+  text_layer_set_background_color(&hour_layer, GColorBlack);
+  text_layer_set_text_color(&hour_layer, GColorWhite);
+  layer_add_child(&window.layer, &hour_layer.layer);
 
+  text_layer_init(&minute_layer, GRect(0, 52, 144, 50));
+  text_layer_set_font(&minute_layer, font);
+  text_layer_set_background_color(&minute_layer, GColorBlack);
+  text_layer_set_text_color(&minute_layer, GColorWhite);
+  layer_add_child(&window.layer, &minute_layer.layer);
 
+  text_layer_init(&static_hours_layer, GRect(0, 104, 144, 50));
+  text_layer_set_font(&static_hours_layer, font);
+  text_layer_set_background_color(&static_hours_layer, GColorBlack);
+  text_layer_set_text_color(&static_hours_layer, GColorWhite);
+  layer_add_child(&window.layer, &static_hours_layer.layer);
+  text_layer_set_text(&static_hours_layer, hours_text);
 }
+
+
 
 static void handle_deinit(AppContextRef ctx) {
   (void) ctx;
@@ -67,7 +86,8 @@ static void handle_deinit(AppContextRef ctx) {
 void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
-  text_layer_set_text(&text_layer, "Hello, world!");
+  text_layer_set_text(&hour_layer, numbers[ptm->tm_hour]);
+  text_layer_set_text(&minute_layer, numbers[ptm->tm_min]);
 }
 
 void pbl_main(void *params) {
