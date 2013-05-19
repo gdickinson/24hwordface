@@ -8,7 +8,7 @@ PBL_APP_INFO(MY_UUID,
              "Template App", "Your Company",
              1, 0, /* App version */
              DEFAULT_MENU_ICON,
-             APP_INFO_STANDARD_APP);
+             APP_INFO_WATCH_FACE);
 
 Window window;
 static GFont font;
@@ -68,6 +68,7 @@ void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
   text_layer_set_text(&text_layer, "Hello, world!");
+  layer_mark_dirty(&text_layer);
 }
 
 void pbl_main(void *params) {
