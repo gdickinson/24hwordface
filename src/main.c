@@ -2,7 +2,7 @@
 #include "pebble_app.h"
 #include "pebble_fonts.h"
 #include "words.h"
-
+#define BUFFER_SIZE 96
 
 #define MY_UUID { 0xDF, 0x08, 0xC5, 0x6F, 0x8A, 0xD2, 0x4E, 0xFF, 0x98, 0xB3, 0x3F, 0x80, 0xE3, 0xAC, 0x07, 0x4A }
 PBL_APP_INFO(MY_UUID,
@@ -15,7 +15,7 @@ Window window;
 static GFont font;
 TextLayer text_layer;
 
-char text[30];
+char text[BUFFER_SIZE];
 
 void handle_init(AppContextRef ctx) {
   (void) ctx;
@@ -26,7 +26,7 @@ void handle_init(AppContextRef ctx) {
   //resource_init_current_app(&RESOURCES);
 
   font = fonts_get_system_font(FONT_KEY_DROID_SERIF_28_BOLD);
-
+  
   text_layer_init(&text_layer, GRect(0, 0, 144, 168));
   text_layer_set_font(&text_layer, font);
   text_layer_set_background_color(&text_layer, GColorBlack);
@@ -37,8 +37,7 @@ void handle_init(AppContextRef ctx) {
   PblTm t;
   get_time(&t);
 
-  format_time(t.tm_hour, t.tm_min, text, 30);
-  //text = "hello\nworld";
+  format_time(t.tm_hour, t.tm_min, text, BUFFER_SIZE);
   text_layer_set_text(&text_layer, text);
 }
 
@@ -54,9 +53,10 @@ static void handle_deinit(AppContextRef ctx) {
 void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
+
   int hr = ptm->tm_hour;
   int min = ptm->tm_min;
-  format_time(hr, min, text, 30);
+  format_time(hr, min, text, BUFFER_SIZE);
   text_layer_set_text(&text_layer, text);
 }
 

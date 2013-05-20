@@ -80,9 +80,14 @@ int format_number(int num, char* buf, size_t max_len) {
     strncat(buf, "\n", max_len);
     copied += 1;
     max_len -= 1;
-
-    strncat(buf, ONES[ones_idx], max_len);
-    return copied += strlen(ONES[ones_idx]);
+	
+    // We only want to add a ones numeral if it isn't zero:
+    // Twenty-zero makes no sense.
+	if (ones_idx != 0) {
+      strncat(buf, ONES[ones_idx], max_len);
+      copied += strlen(ONES[ones_idx]);
+    }    
+    return copied;
   }
 }
 
@@ -100,7 +105,7 @@ int format_minutes(int minutes, char* buf, size_t max_len) {
 }
 
 void format_time(int hour, int minutes, char* buf, size_t size) {
-//  size_t remaining = size;
+  memset(buf, 0, size);
   size -= format_hour(hour, buf, size);
   strncat(buf, "\n", 1);
   size -= 1;
