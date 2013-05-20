@@ -33,7 +33,7 @@ void handle_init(AppContextRef ctx) {
   PblTm t;
   get_time(&t);
 
-  format_time(text, t.tm_hour, t.tm_min, 30);
+  format_time(t.tm_hour, t.tm_min, text, 30);
 
   text_layer_set_text(window, text);
 }
