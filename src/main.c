@@ -1,6 +1,7 @@
 #include "pebble_os.h"
 #include "pebble_app.h"
 #include "pebble_fonts.h"
+#include "words.h"
 
 
 #define MY_UUID { 0xDF, 0x08, 0xC5, 0x6F, 0x8A, 0xD2, 0x4E, 0xFF, 0x98, 0xB3, 0x3F, 0x80, 0xE3, 0xAC, 0x07, 0x4A }
@@ -14,32 +15,7 @@ Window window;
 static GFont font;
 TextLayer text_layer;
 
-static const char* numbers[] = {
-  "Zero",
-  "One",
-  "Two",
-  "Three",
-  "Four",
-  "Five",
-  "Six",
-  "Seven",
-  "Eight",
-  "Nine",
-  "Ten",
-  "Eleven",
-  "Twelve",
-  "Thirteen",
-  "Fourteen",
-  "Fifteen",
-  "Sixteen",
-  "Seventeen",
-  "Eighteen",
-  "Nineteen",
-  "Twenty",
-  "Twenty-one",
-  "Twenty-two",
-  "Twenty-three"
-};
+char[30] text;
 
 void handle_init(AppContextRef ctx) {
   (void) ctx;
@@ -51,11 +27,18 @@ void handle_init(AppContextRef ctx) {
 
   font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
 
-  text_layer_init(&text_layer, GRect(0, 0, 144, 2*18));
+  text_layer_init(&text_layer, GRect(0, 0, 144, 4*18));
   text_layer_set_font(&text_layer, font);
 
+  PblTm t;
+  get_time(&t);
 
+  format_time(text, t->tm_hour, t->tm_min, 30);
+
+  text_layer_set_text(window, text);
 }
+
+
 
 static void handle_deinit(AppContextRef ctx) {
   (void) ctx;
@@ -67,7 +50,7 @@ static void handle_deinit(AppContextRef ctx) {
 void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
-  text_layer_set_text(&text_layer, "Hello, world!");
+  
 }
 
 void pbl_main(void *params) {
