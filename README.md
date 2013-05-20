@@ -1,6 +1,9 @@
 # About
+
 This is a simple watchface that displays the current time in 24-hour text, as one might read it out
 loud.
+
+![Screenshot](http://farm3.staticflickr.com/2810/8757062442_e8c46d52a1.jpg)
 
 For example, 9:00am (in 12-hour time) becomes "zero nine hundred hours".
 
