@@ -77,7 +77,7 @@ int format_number(int num, char* buf, size_t max_len) {
     copied += strlen(TENS[tens_idx]);
     max_len -= copied;
 
-    strncat(buf, HYPHEN, max_len);
+    strncat(buf, "\n", max_len);
     copied += 1;
     max_len -= 1;
 

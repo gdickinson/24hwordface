@@ -25,10 +25,11 @@ void handle_init(AppContextRef ctx) {
   window_set_background_color(&window, GColorBlack);
   //resource_init_current_app(&RESOURCES);
 
-  font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
+  font = fonts_get_system_font(FONT_KEY_DROID_SERIF_28_BOLD);
 
-  text_layer_init(&text_layer, GRect(0, 0, 144, 4*18+5));
+  text_layer_init(&text_layer, GRect(0, 0, 144, 168));
   text_layer_set_font(&text_layer, font);
+  text_layer_set_background_color(&text_layer, GColorBlack);
   text_layer_set_text_color(&text_layer, GColorWhite);
 
   layer_add_child(&window.layer, &text_layer.layer);
@@ -37,7 +38,7 @@ void handle_init(AppContextRef ctx) {
   get_time(&t);
 
   format_time(t.tm_hour, t.tm_min, text, 30);
-
+  //text = "hello\nworld";
   text_layer_set_text(&text_layer, text);
 }
 
@@ -53,7 +54,10 @@ static void handle_deinit(AppContextRef ctx) {
 void handle_tick(AppContextRef ctx, PebbleTickEvent* const event) {
   (void) ctx;
   const PblTm* const ptm = event->tick_time;
-  
+  int hr = ptm->tm_hour;
+  int min = ptm->tm_min;
+  format_time(hr, min, text, 30);
+  text_layer_set_text(&text_layer, text);
 }
 
 void pbl_main(void *params) {
