@@ -1,6 +1,7 @@
 #include "words.h"
 #include "string.h"
 #include <stdio.h>
+//#include <stdlib.h>
 
 static const char* ONES[] = {
   "zero",
@@ -16,6 +17,7 @@ static const char* ONES[] = {
 };
 
 static const char* TENS[] = {
+  "",
   "ten",
   "twenty",
   "thirty",
@@ -42,18 +44,23 @@ static const char* ZERO = "zero";
 static const char* HUNDRED = "hundred";
 static const char* HOURS = "hours";
 static const char* HYPHEN = "-";
+static const char* SPACE = " ";
 
 int format_number(int num, char* buf, size_t max_len) {
   if (num < 10) {
     // 1-10 become "zero one" to "zero nine"
     strncat(buf, ZERO, max_len);
-    strncat(buf, ONES[num], max_len - 4);
-    return strlen(ONES[num] + 4);
+    max_len -= 4;
+    strncat(buf, SPACE, max_len);
+    max_len -= 1;
+    strncat(buf, ONES[num], max_len);
+
+    return strlen(ONES[num]) + 5;
 
   } else if (num == 10) {
     // 10 becomes "ten"
-    strncat(buf, TENS[0], max_len);
-    return strlen(TENS[0]);
+    strncat(buf, TENS[1], max_len);
+    return strlen(TENS[1]);
 
   } else if (num < 20) {
     // 11-19 become "eleven" to "nineteen"
@@ -72,7 +79,7 @@ int format_number(int num, char* buf, size_t max_len) {
 
     strncat(buf, HYPHEN, max_len);
     copied += 1;
-    max_len -=1;
+    max_len -= 1;
 
     strncat(buf, ONES[ones_idx], max_len);
     return copied += strlen(ONES[ones_idx]);
@@ -102,3 +109,12 @@ void format_time(int hour, int minutes, char* buf, size_t size) {
   size -= 1;
   strncat(buf, HOURS, size);
 }
+
+// int main(int argc, char const *argv[])
+// {
+//   char* text;
+//   text = (char*) malloc(sizeof(char) * 64); 
+//   format_time(21, 49, text, 64);
+//   printf("%s\n", text);
+//   return 0;
+// }
