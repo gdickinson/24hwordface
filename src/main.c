@@ -6,7 +6,7 @@
 
 #define MY_UUID { 0xDF, 0x08, 0xC5, 0x6F, 0x8A, 0xD2, 0x4E, 0xFF, 0x98, 0xB3, 0x3F, 0x80, 0xE3, 0xAC, 0x07, 0x4A }
 PBL_APP_INFO(MY_UUID,
-             "Template App", "Your Company",
+             "24 Hour Words", "Guy Dickinson",
              1, 0, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
@@ -15,7 +15,7 @@ Window window;
 static GFont font;
 TextLayer text_layer;
 
-char[30] text;
+char text[30];
 
 void handle_init(AppContextRef ctx) {
   (void) ctx;
