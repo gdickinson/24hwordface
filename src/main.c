@@ -27,11 +27,11 @@ void handle_init(AppContextRef ctx) {
 
   font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
 
-  text_layer_init(&text_layer, GRect(0, 0, 144, 4*18));
+  text_layer_init(&text_layer, GRect(0, 0, 144, 4*18+5));
   text_layer_set_font(&text_layer, font);
-  text_layer_set_font_color(&text_layer, GColorWhite);
+  text_layer_set_text_color(&text_layer, GColorWhite);
 
-  layer_add_child(window->layer, text_layer->layer);
+  layer_add_child(&window.layer, &text_layer.layer);
 
   PblTm t;
   get_time(&t);
