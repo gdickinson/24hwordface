@@ -29,13 +29,16 @@ void handle_init(AppContextRef ctx) {
 
   text_layer_init(&text_layer, GRect(0, 0, 144, 4*18));
   text_layer_set_font(&text_layer, font);
+  text_layer_set_font_color(&text_layer, GColorWhite);
+
+  layer_add_child(window->layer, text_layer->layer);
 
   PblTm t;
   get_time(&t);
 
   format_time(t.tm_hour, t.tm_min, text, 30);
 
-  text_layer_set_text(window, text);
+  text_layer_set_text(&text_layer, text);
 }
 
 
