@@ -77,13 +77,12 @@ int format_number(int num, char* buf, size_t max_len) {
     copied += strlen(TENS[tens_idx]);
     max_len -= copied;
 
-    strncat(buf, "\n", max_len);
-    copied += 1;
-    max_len -= 1;
-	
     // We only want to add a ones numeral if it isn't zero:
     // Twenty-zero makes no sense.
 	if (ones_idx != 0) {
+      strncat(buf, "\n", max_len);
+      copied += 1;
+      max_len -= 1;
       strncat(buf, ONES[ones_idx], max_len);
       copied += strlen(ONES[ones_idx]);
     }    
